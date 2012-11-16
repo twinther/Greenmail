@@ -60,7 +60,7 @@ public class SmtpServer extends AbstractServer {
                     handlers.add(smtpHandler);
                     smtpHandler.start();
                 } catch (SocketException ignored) {
-                	ignored.printStackTrace();
+//                	ignored.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                     break;

@@ -13,11 +13,7 @@ import com.icegreen.greenmail.imap.ImapRequestLineReader;
 import com.icegreen.greenmail.imap.ImapResponse;
 import com.icegreen.greenmail.imap.ImapSession;
 import com.icegreen.greenmail.imap.ProtocolException;
-import com.icegreen.greenmail.imap.commands.search.After;
-import com.icegreen.greenmail.imap.commands.search.Before;
-import com.icegreen.greenmail.imap.commands.search.Criteria;
-import com.icegreen.greenmail.imap.commands.search.Deleted;
-import com.icegreen.greenmail.imap.commands.search.Not;
+import com.icegreen.greenmail.imap.commands.search.*;
 import com.icegreen.greenmail.store.FolderException;
 import com.icegreen.greenmail.store.MailFolder;
 import com.icegreen.greenmail.store.SimpleStoredMessage;
@@ -143,6 +139,11 @@ class SearchCommand extends SelectedStateCommand implements UidEnabledCommand {
             } else if (criteria.equals("AFTER")) {
             	String date = readNextToken(request);
             	return new After(date);
+            } else if (criteria.equals("UNSEEN")) {
+                return new Unseen();
+            } else if (criteria.equals("SUBJECT")) {
+                String subject = readNextToken(request);
+                return new Subject(subject);
             }
             throw new ProtocolException("criteria not supported : "  + criteria);
         }
